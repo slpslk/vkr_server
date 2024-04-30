@@ -1,3 +1,9 @@
-let deviceStorage = []
+export let deviceStorage = []
 
-export default deviceStorage
+export const addDevice = (device) => {
+  deviceStorage.push(device)
+}
+
+export const deleteDevice = (deviceID) => {
+  deviceStorage = deviceStorage.filter((deleted) => deleted.id != deviceID)
+}

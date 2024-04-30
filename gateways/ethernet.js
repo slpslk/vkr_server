@@ -1,23 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
+import { Gateway } from './gateway.js';
 
-export class EthernetGateway{
+export class EthernetGateway extends Gateway{
 
   type = 'ethernet'
-  constructor(name) {
-    this.id = uuidv4();
-    this.name = name;
-    this.devices = [];
+  constructor(name, opRange) {
+    super(name, null, opRange)
   }
-
-  connectDevice(device) {
-    if(device.physicalProtocol == this.type) {
-      this.devices.push(device);
-      device.gateway = this;
-      console.log(`Connected to gateway ${this.name}`)
-      return true
-    }
-    else {
-      return false
-    }
-  }
+  
 }

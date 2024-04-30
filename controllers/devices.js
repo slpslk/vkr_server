@@ -1,8 +1,21 @@
 import { TemperatureSensor } from "../devices/temperature.js";
-import deviceStorage from "../deviceStorage.js";
+import {deviceStorage, addDevice, deleteDevice} from "../deviceStorage.js";
+import {getUserTokenAPI} from "../userStorage.js"
 
-function deviceReplacer(key, value) {
-  return (key == 'gateway') ? "value.id" : value;
+export function deviceReplacer(key, value) {
+  if (key == 'gateway' && value !== null) {
+    return {
+      name: value.name,
+      type: value.type
+    }
+  }
+  if (key == 'mqttClient') {
+    return "MqttClient"
+  }
+  if (key == 'itervalID') {
+    return "Timer"
+  }
+  else return value;
 }
 
 export const sendDeviceStorage = (req, res) => {
@@ -15,39 +28,100 @@ export const sendDeviceStorage = (req, res) => {
   }
 }
 
+export const deleteFromDeviceStorage = (req, res) => {
+  const deviceID = req.body["deviceID"];
+  deleteDevice(deviceID)
+  res.json({message: "success"})
+}
+
+//constructor(name, place, meanTimeFailure, protocol, connectionOptions, measureRange, sendingPeriod, weatherAPI)
+
 export const createTemperatureSensor = (req, res) => {
   const requestData = req.body;
   const newDevice = new TemperatureSensor(
     requestData.name,
     requestData.place,
     requestData.meanTimeFailure,
-    requestData.protocol
+    requestData.protocol,
+    requestData.connectionOptions,
+    requestData.measureRange,
+    requestData.sendingPeriod,
+    requestData.weatherAPI
   );
 
-  deviceStorage.push(newDevice);
+  // console.log(requestData.protocol.versions)
+
+  addDevice(newDevice)
   console.log(req.body);
+  console.log(newDevice);
   res.json({ message: "success", "new device id": newDevice.id });
 };
 
-export const controlTemperatureSensor = (req, res) => {
+export const controlTemperatureSensor = async (req, res) => {
   const id = req.params["id"];
   const currentDevice = deviceStorage.find((device) => device.id === id);
 
   if (currentDevice === undefined) {
-    res.status(404).json({ error: "Device not found" });
+    res.status(404).json({ error: "Устройство не найдено" });
   } else {
-    if (req.body.control == true) {
-      if (currentDevice.connect()) {
-      currentDevice.work();
-      res.json({ message: "success" , operation: "connect and start"});
+    if (getUserTokenAPI() !== null){
+      if (req.body.control == true) {
+        if (await currentDevice.connect()) {
+          currentDevice.work();
+          res.json({ message: "success" , operation: "connect and start"});
+        }
+        else {
+          if (currentDevice.connectionError) {
+            res.status(404).json({error: "Невозможно подключиться, проверьте параметры подключения!"});
+          }
+          else {
+          res.status(404).json({ error: "Невозможно подключиться, убедитесь, что устройство подключено к шлюзу!"});
+          }
+        }
       }
       else {
-        res.json({ error: "Невозможно подключиться, убедитесь, что устройство подключено к шлюзу!"});
+        currentDevice.disconnect();
+        res.json({ message: "success", operation: "disconnect and off" });
       }
     }
     else {
-      currentDevice.disconnect();
-      res.json({ message: "success", operation: "disconnect and off" });
+      res.status(404).json({ error: "Токен пользователя не указан. Укажите токен на странице настроек или используйте пользовательский брокер"});
     }
   }
 };
+
+export async function getSensorData (req, res) {
+  const type = req.params["type"];
+  const id = req.params["id"];
+  const currentDevice = deviceStorage.find((device) => device.id === id);
+  const userToken = getUserTokenAPI();
+
+  if(currentDevice === undefined) {
+    res.status(404).json({ error: "Устройство не найдено" });
+  }
+  else if (userToken === null) {
+    res.status(404).json({ error: "Токен пользователя не указан" });
+  }
+  else {
+    const response = await currentDevice.getRightechCurrentData(userToken, type)
+    res.json(response);
+  }
+}
+
+export const reconnectDevice = (req, res) => {
+  const id = req.params["id"];
+  const currentDevice = deviceStorage.find((device) => device.id === id);
+
+  if(currentDevice === undefined) {
+    res.status(404).json({ error: "Устройство не найдено" });
+  }
+  else {
+    if (currentDevice.reconnect()) {
+      currentDevice.work()
+      res.json({ message: "success", operation: "reconnected" })
+    }
+    else {
+      res.status(404).json({ error: "Ошибка при переподключении" });
+    }
+  }
+}

@@ -1,8 +1,9 @@
 import { EthernetGateway } from "../gateways/ethernet.js";
 import { WifiGateway } from "../gateways/wifi.js";
 import { BLEGateway } from "../gateways/ble.js";
-import deviceStorage from "../deviceStorage.js";
-import gatewayStorage from "../gatewayStorage.js";
+import {deviceStorage} from "../deviceStorage.js";
+import {gatewayStorage, addGateway, deleteGateway} from "../gatewayStorage.js";
+import {deviceReplacer} from "./devices.js"
 import * as util from 'util'
 
 // function gatewayReplacer(key, value) {
@@ -30,13 +31,20 @@ export const sendGatewayStorage = (req, res) => {
   }
 }
 
+export const deleteFromGatewayStorage = (req, res) => {
+  const gatewayID = req.body["gatewayID"];
+  deleteGateway(gatewayID)
+  res.json({message: "success"})
+}
+
 export const createEthernetGateway = (req, res) => {
   const requestData = req.body;
   const newGateway = new EthernetGateway(
     requestData.name,
+    requestData.opRange
   );
 
-  gatewayStorage.push(newGateway);
+  addGateway(newGateway)
   console.log(req.body);
   console.log(newGateway)
   res.json({ message: "success", "new gateway id": newGateway.id });
@@ -47,10 +55,11 @@ export const createWiFiGateway = (req, res) => {
   const requestData = req.body;
   const newGateway = new WifiGateway(
     requestData.name,
-    requestData.versions
+    requestData.versions,
+    requestData.opRange
   );
   
-  gatewayStorage.push(newGateway);
+  addGateway(newGateway)
   console.log(req.body);
   res.json({ message: "success", "new gateway id": newGateway.id });
 }
@@ -59,15 +68,42 @@ export const createBLEGateway = (req, res) => {
   const requestData = req.body;
   const newGateway = new BLEGateway(
     requestData.name,
-    requestData.versions
+    requestData.versions,
+    requestData.opRange
   );
   
-  gatewayStorage.push(newGateway);
+  addGateway(newGateway)
   console.log(req.body);
   res.json({ message: "success", "new gateway id": newGateway.id });
 }
 
 export const connectDeviceToGateway = (req, res) => {
+  const gatewayID = req.params["id"];
+  const deviceID = req.body["deviceID"];
+  const distance = req.body["distance"]
+  const currentGateway = gatewayStorage.find((gateway) => gateway.id === gatewayID);
+  const currentDevice = deviceStorage.find((device) => device.id === deviceID);
+
+  if (currentGateway === undefined) {
+    res.status(404).json({ error: "Gateway not found" });
+  } 
+  else if (currentDevice === undefined) {
+    res.status(404).json({ error: "Device not found" });
+  }
+  else {
+    const connectionResult = currentGateway.connectDevice(currentDevice, distance);
+    if (connectionResult.status) {
+      console.log(util.inspect(currentGateway.devices));
+      console.log(util.inspect(currentDevice));
+      res.json({ message: "success" });
+    }
+    else {
+      res.status(404).json({ error: `Ошибка подключения. ${connectionResult.message}` });
+    }
+  }
+}
+
+export const disconnectDeviceFromGateway = (req, res) => {
   const gatewayID = req.params["id"];
   const deviceID = req.body["deviceID"];
   const currentGateway = gatewayStorage.find((gateway) => gateway.id === gatewayID);
@@ -80,14 +116,11 @@ export const connectDeviceToGateway = (req, res) => {
     res.status(404).json({ error: "Device not found" });
   }
   else {
-    if (currentGateway.connectDevice(currentDevice)) {
+      currentGateway.deleteDevice(currentDevice)
       console.log(util.inspect(currentGateway.devices));
       console.log(util.inspect(currentDevice));
       res.json({ message: "success" });
-    }
-    else {
-      res.status(404).json({ error: "Protocol error" });
-    }
+
   }
 }
 
@@ -98,13 +131,7 @@ export const getGatewayDevices = (req, res) => {
     res.status(404).json({ error: "Gateway not found" });
   } 
   else {
-    res.json(JSON.stringify(currentGateway.devices, gatewayReplacer))
+    res.json(JSON.stringify(currentGateway.devices, deviceReplacer))
   }
-
-  // if(currentGateway.devices.length == 0) {
-  //   res.json(null)
-  // }
-  // else 
-
 }
 

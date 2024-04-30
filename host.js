@@ -1,9 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import * as http from 'http'
-import deviceStorage from './deviceStorage.js'
 import deviceRoutes from './routes/devices.js'
 import gatewayRoutes from './routes/gateways.js'
+import userRoutes from './routes/user.js'
 import { TemperatureSensor } from './devices/temperature.js';
 const app = express(),
 server = http.createServer(app);
@@ -16,6 +16,7 @@ app.use(cors({
 app.use(express.json())
 app.use(deviceRoutes)
 app.use(gatewayRoutes)
+app.use(userRoutes)
 
 
 server.listen(port, host, () =>
