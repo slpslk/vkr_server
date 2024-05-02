@@ -5,8 +5,9 @@ export class TemperatureSensor extends Sensor {
   
   type = 'temperature'
 
-  constructor(name, place, meanTimeFailure, protocol, connectionOptions, measureRange, sendingPeriod, weatherAPI) {
-    super(name, place, meanTimeFailure, protocol, connectionOptions, sendingPeriod);
+  constructor(properties) {
+    super(properties.id, properties.name, properties.place, properties.meanTimeFailure, properties.protocol, properties.connectionOptions,
+          properties.sendingPeriod);
     // this.measureRange = {
     //   min: -10,
     //   max: 40,
@@ -25,20 +26,21 @@ export class TemperatureSensor extends Sensor {
     //   appid: this.weatherAPI.appid,
     //   units: this.weatherAPI.units
     // })
-    this.measureRange = measureRange;
+    this.measureRange = properties.measureRange;
     
   }
 
 
   async makeSensorData() {
     const realData = await this.getRealData();
+    const realDataTemp = realData.main.temp
     let sensorData;
 
     if (this.place) {
-      sensorData = (realData.temp + 22) / 2;
+      sensorData = (realDataTemp + 22) / 2;
     } 
     else {
-      sensorData = realData.temp;
+      sensorData = realDataTemp;
     }
 
     if (sensorData <= this.measureRange.min) {

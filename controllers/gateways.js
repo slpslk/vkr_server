@@ -4,6 +4,7 @@ import { BLEGateway } from "../gateways/ble.js";
 import {deviceStorage} from "../deviceStorage.js";
 import {gatewayStorage, addGateway, deleteGateway} from "../gatewayStorage.js";
 import {deviceReplacer} from "./devices.js"
+import { saveGateway, deleteGatewayFromDB } from "../schemas.js";
 import * as util from 'util'
 
 // function gatewayReplacer(key, value) {
@@ -31,18 +32,19 @@ export const sendGatewayStorage = (req, res) => {
   }
 }
 
-export const deleteFromGatewayStorage = (req, res) => {
+export const deleteFromGatewayStorage = async (req, res) => {
   const gatewayID = req.body["gatewayID"];
+  await deleteGatewayFromDB(gatewayID);
+
   deleteGateway(gatewayID)
   res.json({message: "success"})
 }
 
-export const createEthernetGateway = (req, res) => {
+export const createEthernetGateway = async(req, res) => {
   const requestData = req.body;
-  const newGateway = new EthernetGateway(
-    requestData.name,
-    requestData.opRange
-  );
+  const newGateway = new EthernetGateway(requestData);
+
+  await saveGateway(newGateway.id, newGateway.type, requestData)
 
   addGateway(newGateway)
   console.log(req.body);
@@ -51,27 +53,21 @@ export const createEthernetGateway = (req, res) => {
 }
 
 
-export const createWiFiGateway = (req, res) => {
+export const createWiFiGateway = async (req, res) => {
   const requestData = req.body;
-  const newGateway = new WifiGateway(
-    requestData.name,
-    requestData.versions,
-    requestData.opRange
-  );
+  const newGateway = new WifiGateway(requestData);
+  await saveGateway(newGateway.id, newGateway.type, requestData)
   
   addGateway(newGateway)
   console.log(req.body);
   res.json({ message: "success", "new gateway id": newGateway.id });
 }
 
-export const createBLEGateway = (req, res) => {
+export const createBLEGateway = async (req, res) => {
   const requestData = req.body;
-  const newGateway = new BLEGateway(
-    requestData.name,
-    requestData.versions,
-    requestData.opRange
-  );
-  
+  const newGateway = new BLEGateway(requestData);
+  await saveGateway(newGateway.id, newGateway.type, requestData);
+
   addGateway(newGateway)
   console.log(req.body);
   res.json({ message: "success", "new gateway id": newGateway.id });
@@ -101,6 +97,12 @@ export const connectDeviceToGateway = (req, res) => {
       res.status(404).json({ error: `Ошибка подключения. ${connectionResult.message}` });
     }
   }
+}
+
+export const changeGateway = (req, res) => {
+  const gatewayID = req.params["id"];
+  const changedData = req.body
+  console.log(req.body)
 }
 
 export const disconnectDeviceFromGateway = (req, res) => {

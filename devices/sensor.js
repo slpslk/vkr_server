@@ -6,8 +6,13 @@ const TO_MILISECONDS = 60000;
 
 export class Sensor {
 
-  constructor(name, place, meanTimeFailure, protocol, connectionOptions, sendingPeriod) {
-    this.id = uuidv4();
+  constructor(id, name, place, meanTimeFailure, protocol, connectionOptions, sendingPeriod) {
+    if(id !== undefined) {
+      this.id = id
+    }
+    else {
+      this.id = uuidv4();
+    }
     this.name = name;
     this.place = place;
 
@@ -144,7 +149,7 @@ export class Sensor {
   async getRealData() {
     const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?${this.weatherParams}`);
     const realData = await response.json();
-    return realData.main;
+    return realData;
   }
 
   workThroughHTTP() {
@@ -237,7 +242,7 @@ export class Sensor {
   
   
 
-  async getRightechCurrentData(token, type) {
+  async getRightechCurrentData(token) {
 
     let url = null
     if (this.mqttClient == "none")
@@ -260,7 +265,7 @@ export class Sensor {
     const data = await response.json();
 
     return {
-      currentData: data.state[type],
+      currentData: data.state[this.type],
       online: this.mqttClient == "none" ? this.intervalID !== undefined : data.state.online
     };
   }

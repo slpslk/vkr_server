@@ -2,8 +2,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 export class Gateway{
 
-  constructor(name, versions, opRange) {
-    this.id = uuidv4();
+  constructor(id, name, versions, opRange) {
+    if(id !== undefined) {
+      this.id = id
+    }
+    else {
+      this.id = uuidv4();
+    }
     this.name = name;
     this.versions = versions;
     this.opRange = opRange;
@@ -25,7 +30,7 @@ export class Gateway{
           }
         }
           this.devices.push(device);
-          device.gateway = this;
+          device.gateway = this.id;
           console.log(`Connected to gateway ${this.name}`);
           return {
             status: true
