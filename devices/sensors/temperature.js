@@ -56,6 +56,12 @@ export class TemperatureSensor extends Sensor {
     return sensorData;
   }
 
+  changeProperties(newProps) {
+    if(newProps.measureRange) {
+      this.measureRange = newProps.measureRange
+    }
+    this.changeGeneralProperties(newProps)
+  }
   
 }
 

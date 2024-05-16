@@ -1,18 +1,17 @@
 import { Router } from 'express'
-import { sendGatewayStorage, createEthernetGateway, connectDeviceToGateway,
-createWiFiGateway,createBLEGateway, getGatewayDevices, disconnectDeviceFromGateway, deleteFromGatewayStorage } from '../controllers/gateways.js'
+import { GatewaysController } from '../controllers/index.js'
 
 const router = Router()
 
-router.get('/api/gateways', sendGatewayStorage)
-router.delete('/api/gateways', deleteFromGatewayStorage)
-router.post('/api/gateways/ethernet', createEthernetGateway)
-router.post('/api/gateways/wifi', createWiFiGateway)
-router.post('/api/gateways/ble', createBLEGateway)
-router.patch('/api/gateways/:id', )
-router.post('/api/gateways/:id/add', connectDeviceToGateway)
-router.delete('/api/gateways/:id/delete', disconnectDeviceFromGateway)
-router.get('/api/gateways/:id/devices', getGatewayDevices)
+router.get('/api/gateways', GatewaysController.sendGatewayStorage)
+router.delete('/api/gateways', GatewaysController.deleteFromGatewayStorage)
+router.post('/api/gateways/ethernet', GatewaysController.createEthernetGateway)
+router.post('/api/gateways/wifi', GatewaysController.createWiFiGateway)
+router.post('/api/gateways/ble', GatewaysController.createBLEGateway)
+router.patch('/api/gateways/:id', GatewaysController.changeGateway)
+router.post('/api/gateways/:id/add', GatewaysController.connectDeviceToGateway)
+router.delete('/api/gateways/:id/delete', GatewaysController.disconnectDeviceFromGateway)
+router.get('/api/gateways/:id/devices', GatewaysController.getGatewayDevices)
 
 
 export default router;

@@ -1,8 +1,8 @@
 import { Sensor } from "./sensor.js";
 import * as mqtt from "mqtt";
 
-export class LightingSensor extends Sensor {
-  type = 'lighting'
+export class HumiditySensor extends Sensor {
+  type = 'humidity'
 
   constructor(properties) {
     super(properties.id, properties.name, properties.place, properties.meanTimeFailure, properties.protocol, properties.connectionOptions,
@@ -32,42 +32,15 @@ export class LightingSensor extends Sensor {
 
   async makeSensorData() {
     const realData = await this.getRealData();
-    const realDataTime = new Date(realData.dt * 1000).getHours()
-    const realDataRain = realData.rain
-    const realDataClouds = realData.clouds.all
-    
+    const realDataHumidity = realData.main.humidity
     let sensorData;
 
-    if (realDataTime == 23 || realDataTime < 5 ) // night
-    {
-      if (realDataRain !== undefined || realDataClouds > 30) {
-        sensorData = 0;
-      }
-      else {
-        sensorData = 20
-      }
-    }
-    else if (realDataTime >= 11 && realDataTime < 17) {
-      if (realDataRain !== undefined || realDataClouds > 30) {
-        sensorData = 1000;
-      }
-      else {
-        sensorData = 5000;
-      }
-    }
-    else {
-      if (realDataRain !== undefined || realDataClouds > 30) {
-        sensorData = 40;
-      }
-      else {
-        sensorData = 400;
-      }
-    }
-
     if (this.place) {
-      sensorData = (sensorData + 200) / 2;
+      sensorData = (realDataHumidity + 45) / 2;
     } 
-
+    else {
+      sensorData = realDataHumidity;
+    }
 
     if (sensorData <= this.measureRange.min) {
       sensorData = this.measureRange.min
@@ -82,6 +55,11 @@ export class LightingSensor extends Sensor {
     return sensorData;
   }
 
+  changeProperties(newProps) {
+    if(newProps.measureRange) {
+      this.measureRange = newProps.measureRange
+    }
+    this.changeGeneralProperties(newProps)
+  }
 }
-
 

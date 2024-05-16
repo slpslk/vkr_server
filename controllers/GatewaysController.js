@@ -3,8 +3,8 @@ import { WifiGateway } from "../gateways/wifi.js";
 import { BLEGateway } from "../gateways/ble.js";
 import {deviceStorage} from "../deviceStorage.js";
 import {gatewayStorage, addGateway, deleteGateway} from "../gatewayStorage.js";
-import {deviceReplacer} from "./devices.js"
-import { saveGateway, deleteGatewayFromDB } from "../schemas.js";
+import {deviceReplacer} from "./DevicesController.js"
+import { saveGateway, deleteGatewayFromDB, updateGateway } from "../schemas.js";
 import * as util from 'util'
 
 // function gatewayReplacer(key, value) {
@@ -99,10 +99,16 @@ export const connectDeviceToGateway = (req, res) => {
   }
 }
 
-export const changeGateway = (req, res) => {
+export const changeGateway = async(req, res) => {
   const gatewayID = req.params["id"];
   const changedData = req.body
+  const currentGateway = gatewayStorage.find((gateway) => gateway.id === gatewayID);
+
+  await updateGateway(gatewayID, changedData)
+  currentGateway.changeGatewayFields(changedData)
   console.log(req.body)
+
+  res.json({ message: "success" });
 }
 
 export const disconnectDeviceFromGateway = (req, res) => {

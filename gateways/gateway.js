@@ -16,43 +16,64 @@ export class Gateway{
   }
 
   connectDevice(device, distance) {
-    if ((+device.measureRange.opRange + +this.opRange) > distance) {
-      if (device.physicalProtocol == this.type) {
-        if (this.versions !== null) {
-          let commonVersions = this.versions.filter((item) =>
-            device.protocolVersions.includes(item)
-          );
-          if (commonVersions.length == 0) {
-            return {
-              status: false,
-              message: "Проверьте поддерживаемые версии протокола"
+    
+    if (this.type != 'ethernet') {
+      if ((+device.measureRange.opRange + +this.opRange) > distance) {
+        if (device.physicalProtocol == this.type) {
+          if (this.versions !== null) {
+            let commonVersions = this.versions.filter((item) =>
+              device.protocolVersions.includes(item)
+            );
+            if (commonVersions.length == 0) {
+              return {
+                status: false,
+                message: "Проверьте поддерживаемые версии протокола"
+              }
             }
           }
+            this.devices.push(device);
+            device.gateway = this.id;
+            console.log(`Connected to gateway ${this.name}`);
+            return {
+              status: true
+            }
+          } 
+          else {
+            return {
+              status: false,
+              message: "Устройство не поддерживает протокол шлюза"
+            }   
         }
-          this.devices.push(device);
-          device.gateway = this.id;
-          console.log(`Connected to gateway ${this.name}`);
-          return {
-            status: true
-          }
-        } 
-        else {
-          return {
-            status: false,
-            message: "Устройство не поддерживает протокол шлюза"
-          }   
+      } 
+      else {
+        return {
+          status: false,
+          message: "Устройство не обнаружено. Возможно, расстояние до устройства слишком большое"
+        }   
       }
-    } 
+    }
     else {
+      this.devices.push(device);
+      device.gateway = this.id;
+      console.log(`Connected to gateway ${this.name}`);
       return {
-        status: false,
-        message: "Устройство не обнаружено. Возможно, расстояние до устройства слишком большое"
-      }   
+        status: true
+      }
     }
   }
 
   deleteDevice(device) {
     this.devices = this.devices.filter((deleted) => deleted.id != device.id)
     device.gateway = null;
+  }
+
+
+
+  changeGatewayFields(fields) {
+    for(var key in this) {
+      if (fields[key] != null) {
+        this[key] = fields[key]
+      }
+    }
   }
 }
