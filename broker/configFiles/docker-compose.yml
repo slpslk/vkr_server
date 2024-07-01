@@ -1,0 +1,17 @@
+version: '3.9'
+name: project_slpslk
+services:
+  mosquitto:
+    container_name: mqttslpslk
+    image: eclipse-mosquitto
+    restart: always
+    volumes:
+      - ./config:/mosquitto/config
+      - ./data:/mosquitto/data
+      - ./log:/mosquitto/log
+    ports:
+      - '1864:1864'
+volumes:
+  config: null
+  data: null
+  log: null

@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const gatewaySchema = new Schema({
   _id: String,
+  userID: mongoose.ObjectId,
   type: String,
   name: String,
   opRange: Number,
@@ -14,10 +15,11 @@ export const Gateway = mongoose.model("Gateway", gatewaySchema)
 
 //TODO сохранять подключенные устройства
 
-export async function saveGateway(id, type, gateway) {
+export async function saveGateway(id, userID, type, gateway) {
 
   const dbGateway = new Gateway({
     _id: id,
+    userID: userID,
     type: type,
     name: gateway.name,
     opRange: gateway.opRange,
@@ -28,8 +30,8 @@ export async function saveGateway(id, type, gateway) {
   console.log("Сохранен объект", dbGateway);
 }
 
-export async function getGateways() {
-  const gateways = await Gateway.find({});
+export async function getGateways(userID) {
+  const gateways = await Gateway.find({userID: userID});
   return gateways
 }
 

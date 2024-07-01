@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const deviceSchema = new Schema({
   _id: String,
+  userID: mongoose.ObjectId,
   type: String,
   name: String,
   place: Boolean,
@@ -27,14 +28,16 @@ const deviceSchema = new Schema({
     error: Number,
     opRange: Number,
   },
+  permissibleValue: Number,
 })
 
 export const Device = mongoose.model("Device", deviceSchema)
 
-export async function saveDevice(id, type, device) {
+export async function saveDevice(id, userID, type, device) {
 
   const dbDevice = new Device({
     _id: id,
+    userID: userID,
     type: type,
     name: device.name,
     place: device.place,
@@ -43,6 +46,7 @@ export async function saveDevice(id, type, device) {
     protocol: device.protocol,
     connectionOptions: device.connectionOptions,
     measureRange: device.measureRange,
+    permissibleValue: device.permissibleValue,
     sendingPeriod: device.sendingPeriod
   })
 
@@ -51,10 +55,8 @@ export async function saveDevice(id, type, device) {
 
 }
 
-export async function getDevices() {
-
-    const devices = await Device.find({});
-
+export async function getDevices(userID) {
+    const devices = await Device.find({userID: userID});
     return devices
 }
 

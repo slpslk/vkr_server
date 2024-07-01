@@ -1,7 +1,7 @@
-import { getGateways } from "./schemas.js"
-import { EthernetGateway } from "./gateways/ethernet.js"
-import { WifiGateway } from "./gateways/wifi.js"
-import { BLEGateway } from "./gateways/ble.js"
+import { getGateways } from "../models/Gateway.js"
+import { EthernetGateway } from "../gateways/ethernet.js"
+import { WifiGateway } from "../gateways/wifi.js"
+import { BLEGateway } from "../gateways/ble.js"
 
 export let gatewayStorage = []
 
@@ -13,8 +13,8 @@ export const deleteGateway = (gatewayID) => {
   gatewayStorage = gatewayStorage.filter((deleted) => deleted.id != gatewayID)
 }
 
-export const initializeGatewaysFromDB = async () => {
-  const dbGateways = await getGateways();
+export const initializeGatewaysFromDB = async (userID) => {
+  const dbGateways = await getGateways(userID);
 
   dbGateways.forEach((gateway) => {
     let newGateway
@@ -32,4 +32,8 @@ export const initializeGatewaysFromDB = async () => {
 
     addGateway(newGateway);
   });
+}
+
+export const clearGatewayStorage = () => {
+  gatewayStorage = []
 }

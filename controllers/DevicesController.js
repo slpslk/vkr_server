@@ -1,12 +1,13 @@
 import { TemperatureSensor } from "../devices/sensors/temperature.js";
 import { HumiditySensor } from "../devices/sensors/humidity.js";
 import { LightingSensor } from "../devices/sensors/lighting.js";
+import { NoiseSensor } from "../devices/sensors/noise.js";
 import { Lamp } from "../devices/controlled/lamp.js";
-import {deviceStorage, addDevice, deleteDevice} from "../deviceStorage.js";
-import {getUserTokenAPI} from "../userStorage.js"
-import { saveDevice, getDevices, updateDevice, deleteDeviceFromDB } from "../schemas.js";
+import {DeviceStorage, GatewayStorage, UserStorage} from "../storages/index.js";
+// import {getUserTokenAPI} from "../storages/userStorage.js"
+import {saveDevice, getDevices, updateDevice, deleteDeviceFromDB} from '../models/Device.js'
 
-const sensorTypes = ["temperature", "humidity", "lighting"]
+const sensorTypes = ["temperature", "humidity", "lighting", "noise"]
 const controlledTypes = ["lamp"]
 
 export function deviceReplacer(key, value) {
@@ -19,34 +20,38 @@ export function deviceReplacer(key, value) {
   if (key == 'mqttClient') {
     return value == 'none' ? null : 'MqttClient'
   }
-  if (key == 'itervalID') {
+  if (key == 'intervalID') {
     return "Timer"
+  }
+  if (key == 'eventTimeout') {
+    return "eventTimeout"
   }
   else return value;
 }
 
 export const sendDeviceStorage = async (req, res) => {
   
-  if(deviceStorage.length == 0) {
+  if(DeviceStorage.deviceStorage.length == 0) {
     res.json(null)
   }
   else {
-    res.json(JSON.stringify(deviceStorage, deviceReplacer))
+    console.log(DeviceStorage.deviceStorage)
+    res.json(JSON.stringify(DeviceStorage.deviceStorage, deviceReplacer))
   }
-
-  // if(sensors.length == 0) {
-  //   res.json(null)
-  // }
-  // else {
-  //   res.json(JSON.stringify(sensors, deviceReplacer))
-  // }
 }
 
 export const deleteFromDeviceStorage = async(req, res) => {
   const deviceID = req.body["deviceID"];
+  const currentDevice = DeviceStorage.deviceStorage.find((device) => device.id === deviceID);
+  console.log(currentDevice)
+  if (currentDevice.gateway != null) {
+    const currentGateway = GatewayStorage.gatewayStorage.find((gateway) => gateway.id === currentDevice.gateway);
+    console.log(currentGateway)
+    currentGateway.deleteDevice(currentDevice)
+  }
 
   await deleteDeviceFromDB(deviceID)
-  deleteDevice(deviceID)
+  DeviceStorage.deleteDevice(deviceID)
 
   res.json({message: "success"})
 }
@@ -57,26 +62,34 @@ export const createTemperatureSensor = async (req, res) => {
   const requestData = req.body;
   const newDevice = new TemperatureSensor(requestData);
 
-  await saveDevice(newDevice.id, newDevice.type, requestData)
+  await saveDevice(newDevice.id, req.userId, newDevice.type, requestData)
 
-  // console.log(requestData.protocol.versions)
+  DeviceStorage.addDevice(newDevice)
+  console.log(req.body);
+  console.log(newDevice);
+  res.json({ message: "success", "new device id": newDevice.id });
+};
 
-  addDevice(newDevice)
+export const createLightingSensor = async(req, res) => {
+  const requestData = req.body;
+  const newDevice = new LightingSensor(requestData);
+
+  await saveDevice(newDevice.id, req.userId, newDevice.type, requestData)
+
+  DeviceStorage.addDevice(newDevice)
   console.log(req.body);
   console.log(newDevice);
   res.json({ message: "success", "new device id": newDevice.id });
 };
 
 
-
-export const createLightingSensor = async(req, res) => {
+export const createNoiseSensor = async(req, res) => {
   const requestData = req.body;
-  const newDevice = new LightingSensor(requestData);
+  const newDevice = new NoiseSensor(requestData);
 
-  // console.log(requestData.protocol.versions)
-  await saveDevice(newDevice.id, newDevice.type, requestData)
+  await saveDevice(newDevice.id, req.userId, newDevice.type, requestData)
 
-  addDevice(newDevice)
+  DeviceStorage.addDevice(newDevice)
   console.log(req.body);
   console.log(newDevice);
   res.json({ message: "success", "new device id": newDevice.id });
@@ -86,11 +99,9 @@ export const createHumiditySensor = async(req, res) => {
   const requestData = req.body;
   const newDevice = new HumiditySensor(requestData);
 
-  await saveDevice(newDevice.id, newDevice.type, requestData)
+  await saveDevice(newDevice.id, req.userId, newDevice.type, requestData)
 
-  // console.log(requestData.protocol.versions)
-
-  addDevice(newDevice)
+  DeviceStorage.addDevice(newDevice)
   
   console.log(newDevice);
   console.log(req.body);
@@ -101,11 +112,9 @@ export const createLampDevice = async (req, res) => {
   const requestData = req.body;
   const newDevice = new Lamp(requestData);
 
-  await saveDevice(newDevice.id, newDevice.type, requestData)
+  await saveDevice(newDevice.id, req.userId, newDevice.type, requestData)
 
-  // console.log(requestData.protocol.versions)
-
-  addDevice(newDevice)
+  DeviceStorage.addDevice(newDevice)
   console.log(req.body);
   console.log(newDevice);
   res.json({ message: "success", "new device id": newDevice.id });
@@ -114,8 +123,8 @@ export const createLampDevice = async (req, res) => {
 export const changeDeviceStatus = async (req, res) => {
   const deviceID = req.params["id"];
   const status = req.body.status
-  const currentDevice = deviceStorage.find((device) => device.id === deviceID);
-  const userToken = getUserTokenAPI();
+  const currentDevice = DeviceStorage.deviceStorage.find((device) => device.id === deviceID);
+  const userToken = UserStorage.getUserTokenAPI();
 
   if (currentDevice === undefined) {
     res.status(404).json({ error: "Устройство не найдено" });
@@ -124,7 +133,7 @@ export const changeDeviceStatus = async (req, res) => {
     res.status(404).json({ error: "Токен пользователя не указан" });
   }
   else {
-    const response = await currentDevice.changeRighteckDeviceStatus(status, userToken)
+    const response = await currentDevice.changeDeviceStatus(status, userToken)
     res.json(response);
   }
 };
@@ -132,7 +141,7 @@ export const changeDeviceStatus = async (req, res) => {
 export const changeDevice = async (req, res) => {
   const deviceID = req.params["id"];
   const changedData = req.body
-  const currentDevice = deviceStorage.find((device) => device.id === deviceID);
+  const currentDevice = DeviceStorage.deviceStorage.find((device) => device.id === deviceID);
 
   await updateDevice(deviceID, changedData)
   currentDevice.changeProperties(changedData)
@@ -145,7 +154,7 @@ export const changeDevice = async (req, res) => {
 
 export const controlDevice = async (req, res) => {
   const id = req.params["id"];
-  const currentDevice = deviceStorage.find((device) => device.id === id);
+  const currentDevice = DeviceStorage.deviceStorage.find((device) => device.id === id);
   let currentType;
 
   if(sensorTypes.find((type) => type === currentDevice.type) !== undefined) {
@@ -158,8 +167,8 @@ export const controlDevice = async (req, res) => {
   if (currentDevice === undefined) {
     res.status(404).json({ error: "Устройство не найдено" });
   } else {
-    if (currentDevice.broker == "rightech" ){ //|| userBrokerExists() 
-      if (getUserTokenAPI() !== null){
+    if (currentDevice.broker == "rightech" || UserStorage.userBrokerWorking()){ //|| userBrokerExists() 
+      if (UserStorage.getUserTokenAPI() !== null){
         if (req.body.control == true) {
           if (await currentDevice.connect()) {
             if (currentType == "sensor") {
@@ -172,7 +181,7 @@ export const controlDevice = async (req, res) => {
               res.status(404).json({error: "Невозможно подключиться, проверьте параметры подключения!"});
             }
             else {
-            res.status(404).json({ error: "Невозможно подключиться, убедитесь, что устройство подключено к шлюзу и версии протокола совпадают!"});
+            res.status(404).json({ error: "Невозможно подключиться, убедитесь, что устройство подключено к шлюзу!"});
             }
           }
         }
@@ -186,17 +195,34 @@ export const controlDevice = async (req, res) => {
       }
     }
     else {
-      res.status(404).json({ error: "Пользовательский брокер не создан. Создайте свой брокер на странице настроек или используйте платформу Rightech"});
+      res.status(404).json({ error: "Пользовательский брокер не запущен."});
     }
   }
 };
 
 
+export async function makeDeviceEvent (req, res) {
+  const id = req.params["id"];
+  const eventType = req.body.eventType
+  const currentDevice = DeviceStorage.deviceStorage.find((device) => device.id === id);
+
+  if(currentDevice === undefined) {
+    res.status(404).json({ error: "Устройство не найдено" });
+  }
+  else {
+    console.log(req.body)
+    if (eventType == 'noise') {
+      currentDevice.noiseEvent()
+    }
+    res.json({ message: "success"});
+  }
+}
+
 
 export async function getDeviceData (req, res) {
   const id = req.params["id"];
-  const currentDevice = deviceStorage.find((device) => device.id === id);
-  const userToken = getUserTokenAPI();
+  const currentDevice = DeviceStorage.deviceStorage.find((device) => device.id === id);
+  const userToken = UserStorage.getUserTokenAPI();
 
   if(currentDevice === undefined) {
     res.status(404).json({ error: "Устройство не найдено" });
@@ -212,7 +238,7 @@ export async function getDeviceData (req, res) {
 
 export const reconnectDevice = (req, res) => {
   const id = req.params["id"];
-  const currentDevice = deviceStorage.find((device) => device.id === id);
+  const currentDevice = DeviceStorage.deviceStorage.find((device) => device.id === id);
   let currentType;
   if(sensorTypes.find((type) => type === currentDevice.type) !== undefined) {
     currentType = "sensor"

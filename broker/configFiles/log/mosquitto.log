@@ -1,0 +1,429 @@
+1711985054: mosquitto version 2.0.18 starting
+1711985054: Config loaded from /mosquitto/config/mosquitto.conf.
+1711985054: Opening websockets listen socket on port 1883.
+1711985054: mosquitto version 2.0.18 running
+1711985501: mosquitto version 2.0.18 terminating
+1711985501: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715060821: mosquitto version 2.0.18 starting
+1715060821: Config loaded from /mosquitto/config/mosquitto.conf.
+1715060821: Opening websockets listen socket on port 1883.
+1715060821: mosquitto version 2.0.18 running
+1715060835: mosquitto version 2.0.18 terminating
+1715060835: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715062349: mosquitto version 2.0.18 starting
+1715062349: Config loaded from /mosquitto/config/mosquitto.conf.
+1715062349: Opening websockets listen socket on port 1883.
+1715062349: mosquitto version 2.0.18 running
+1715062445: mosquitto version 2.0.18 terminating
+1715062445: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715068685: mosquitto version 2.0.18 starting
+1715068685: Config loaded from /mosquitto/config/mosquitto.conf.
+1715068685: Opening websockets listen socket on port 1883.
+1715068685: mosquitto version 2.0.18 running
+1715068697: mosquitto version 2.0.18 terminating
+1715068697: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715068710: mosquitto version 2.0.18 starting
+1715068710: Config loaded from /mosquitto/config/mosquitto.conf.
+1715068710: Opening websockets listen socket on port 1883.
+1715068710: mosquitto version 2.0.18 running
+1715068735: mosquitto version 2.0.18 terminating
+1715068735: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715072546: mosquitto version 2.0.18 starting
+1715072546: Config loaded from /mosquitto/config/mosquitto.conf.
+1715072546: Opening websockets listen socket on port 1884.
+1715072546: mosquitto version 2.0.18 running
+1715072557: mosquitto version 2.0.18 terminating
+1715072557: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715072647: mosquitto version 2.0.18 starting
+1715072647: Config loaded from /mosquitto/config/mosquitto.conf.
+1715072647: Opening websockets listen socket on port 1884.
+1715072647: mosquitto version 2.0.18 running
+1715072665: mosquitto version 2.0.18 terminating
+1715072665: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715072931: mosquitto version 2.0.18 starting
+1715072931: Config loaded from /mosquitto/config/mosquitto.conf.
+1715072931: Opening websockets listen socket on port 1884.
+1715072931: mosquitto version 2.0.18 running
+1715072973: mosquitto version 2.0.18 terminating
+1715072973: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715073271: mosquitto version 2.0.18 starting
+1715073271: Config loaded from /mosquitto/config/mosquitto.conf.
+1715073271: Opening websockets listen socket on port 1884.
+1715073271: mosquitto version 2.0.18 running
+1715073333: mosquitto version 2.0.18 starting
+1715073333: Config loaded from /mosquitto/config/mosquitto.conf.
+1715073333: Opening websockets listen socket on port 1884.
+1715073333: mosquitto version 2.0.18 running
+1715073349: mosquitto version 2.0.18 terminating
+1715073349: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715073350: mosquitto version 2.0.18 terminating
+1715073350: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715075093: mosquitto version 2.0.18 starting
+1715075093: Config loaded from /mosquitto/config/mosquitto.conf.
+1715075093: Opening websockets listen socket on port 1884.
+1715075093: mosquitto version 2.0.18 running
+1715075123: mosquitto version 2.0.18 terminating
+1715075123: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715075340: mosquitto version 2.0.18 starting
+1715075340: Config loaded from /mosquitto/config/mosquitto.conf.
+1715075340: Opening websockets listen socket on port 1864.
+1715075340: mosquitto version 2.0.18 running
+1715075582: mosquitto version 2.0.18 terminating
+1715075582: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715075625: mosquitto version 2.0.18 starting
+1715075625: Config loaded from /mosquitto/config/mosquitto.conf.
+1715075625: Opening websockets listen socket on port 1883.
+1715075625: mosquitto version 2.0.18 running
+1715075945: mosquitto version 2.0.18 terminating
+1715075945: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715075946: mosquitto version 2.0.18 starting
+1715075946: Config loaded from /mosquitto/config/mosquitto.conf.
+1715075946: Opening websockets listen socket on port 1864.
+1715075946: mosquitto version 2.0.18 running
+1715076084: mosquitto version 2.0.18 terminating
+1715076084: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715076126: mosquitto version 2.0.18 starting
+1715076126: Config loaded from /mosquitto/config/mosquitto.conf.
+1715076126: Opening websockets listen socket on port 1884.
+1715076126: mosquitto version 2.0.18 running
+1715076255: mosquitto version 2.0.18 terminating
+1715076255: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715076280: mosquitto version 2.0.18 starting
+1715076280: Config loaded from /mosquitto/config/mosquitto.conf.
+1715076280: Opening websockets listen socket on port 1884.
+1715076280: mosquitto version 2.0.18 running
+1715076352: mosquitto version 2.0.18 terminating
+1715076352: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715076428: mosquitto version 2.0.18 starting
+1715076428: Config loaded from /mosquitto/config/mosquitto.conf.
+1715076428: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1715076428: Opening websockets listen socket on port 1884.
+1715076428: mosquitto version 2.0.18 running
+1715076647: mosquitto version 2.0.18 terminating
+1715076647: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715077172: mosquitto version 2.0.18 starting
+1715077172: Config loaded from /mosquitto/config/mosquitto.conf.
+1715077172: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1715077172: Opening websockets listen socket on port 1884.
+1715077172: mosquitto version 2.0.18 running
+1715077675: mosquitto version 2.0.18 terminating
+1715077675: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715139493: mosquitto version 2.0.18 starting
+1715139493: Config loaded from /mosquitto/config/mosquitto.conf.
+1715139493: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1715139493: Opening websockets listen socket on port 1884.
+1715139493: mosquitto version 2.0.18 running
+1715139621: mosquitto version 2.0.18 terminating
+1715139621: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715139949: mosquitto version 2.0.18 starting
+1715139949: Config loaded from /mosquitto/config/mosquitto.conf.
+1715139949: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1715139949: Opening websockets listen socket on port 1884.
+1715139949: mosquitto version 2.0.18 running
+1715140475: New client connected from ::ffff:172.27.0.1:52294 as mqttx_de92a574 (p5, c1, k60, u'slpslk').
+1715140607: Client mqttx_de92a574 disconnected.
+1715140656: New client connected from ::ffff:172.27.0.1:50816 as mqttx_de92a574 (p5, c1, k60, u'slpslk').
+1715140700: New client connected from ::ffff:172.27.0.1:54830 as client_12345 (p2, c1, k60, u'slpslk').
+1715140807: Client client_12345 closed its connection.
+1715140819: New client connected from ::ffff:172.27.0.1:35786 as client_12345 (p2, c1, k60, u'slpslk').
+1715140843: Client client_12345 closed its connection.
+1715140861: Client mqttx_de92a574 disconnected.
+1715140864: mosquitto version 2.0.18 terminating
+1715140864: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1715144158: mosquitto version 2.0.18 starting
+1715144158: Config loaded from /mosquitto/config/mosquitto.conf.
+1715144158: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1715144158: Opening websockets listen socket on port 1884.
+1715144158: mosquitto version 2.0.18 running
+1715144314: New client connected from ::ffff:172.27.0.1:60462 as client_12345 (p2, c1, k60, u'slpslk').
+1715144389: Client client_12345 disconnected.
+1715144440: mosquitto version 2.0.18 terminating
+1715144440: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716278338: mosquitto version 2.0.18 starting
+1716278338: Config loaded from /mosquitto/config/mosquitto.conf.
+1716278338: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716278338: Error: Unable to decode password for user slpslk, removing entry.
+1716278338: Opening websockets listen socket on port 1864.
+1716278338: mosquitto version 2.0.18 running
+1716278370: Client mqttx_04ce707e closed its connection.
+1716278413: mosquitto version 2.0.18 terminating
+1716278413: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716278458: mosquitto version 2.0.18 starting
+1716278458: Config loaded from /mosquitto/config/mosquitto.conf.
+1716278458: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716278458: Opening websockets listen socket on port 1864.
+1716278458: mosquitto version 2.0.18 running
+1716278469: New client connected from ::ffff:172.18.0.1:47662 as mqttx_04ce707e (p5, c1, k60, u'12345').
+1716278475: Client mqttx_04ce707e disconnected.
+1716278488: mosquitto version 2.0.18 terminating
+1716278488: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716279681: mosquitto version 2.0.18 starting
+1716279681: Config loaded from /mosquitto/config/mosquitto.conf.
+1716279681: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716279681: Opening websockets listen socket on port 1864.
+1716279681: mosquitto version 2.0.18 running
+1716279803: mosquitto version 2.0.18 terminating
+1716279803: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716279858: mosquitto version 2.0.18 starting
+1716279858: Config loaded from /mosquitto/config/mosquitto.conf.
+1716279858: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716279858: Opening websockets listen socket on port 1864.
+1716279858: mosquitto version 2.0.18 running
+1716279881: mosquitto version 2.0.18 terminating
+1716279881: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716280447: mosquitto version 2.0.18 starting
+1716280447: Config loaded from /mosquitto/config/mosquitto.conf.
+1716280447: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716280447: Error: Unable to decode password for user 12345, removing entry.
+1716280447: Opening websockets listen socket on port 1864.
+1716280447: mosquitto version 2.0.18 running
+1716280481: Client mqttx_04ce707e closed its connection.
+1716280514: mosquitto version 2.0.18 terminating
+1716280514: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716280608: mosquitto version 2.0.18 starting
+1716280608: Config loaded from /mosquitto/config/mosquitto.conf.
+1716280608: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716280608: Opening websockets listen socket on port 1864.
+1716280608: mosquitto version 2.0.18 running
+1716280637: New client connected from ::ffff:172.20.0.1:46724 as mqttx_04ce707e (p5, c1, k60, u'slpslk').
+1716280639: Client mqttx_04ce707e disconnected.
+1716280683: mosquitto version 2.0.18 terminating
+1716280683: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716280746: mosquitto version 2.0.18 starting
+1716280746: Config loaded from /mosquitto/config/mosquitto.conf.
+1716280746: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716280746: Opening websockets listen socket on port 1864.
+1716280746: mosquitto version 2.0.18 running
+1716280752: mosquitto version 2.0.18 terminating
+1716280752: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716301644: mosquitto version 2.0.18 starting
+1716301644: Config loaded from /mosquitto/config/mosquitto.conf.
+1716301644: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716301644: Opening websockets listen socket on port 1864.
+1716301644: mosquitto version 2.0.18 running
+1716301768: mosquitto version 2.0.18 terminating
+1716301768: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716302805: mosquitto version 2.0.18 starting
+1716302805: Config loaded from /mosquitto/config/mosquitto.conf.
+1716302805: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716302805: Opening websockets listen socket on port 1864.
+1716302805: mosquitto version 2.0.18 running
+1716302886: mosquitto version 2.0.18 terminating
+1716302886: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716303361: mosquitto version 2.0.18 starting
+1716303361: Config loaded from /mosquitto/config/mosquitto.conf.
+1716303361: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716303361: Opening websockets listen socket on port 1864.
+1716303361: mosquitto version 2.0.18 running
+1716303392: mosquitto version 2.0.18 terminating
+1716303392: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716303517: mosquitto version 2.0.18 starting
+1716303517: Config loaded from /mosquitto/config/mosquitto.conf.
+1716303517: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716303517: Opening websockets listen socket on port 1864.
+1716303517: mosquitto version 2.0.18 running
+1716303532: mosquitto version 2.0.18 terminating
+1716303532: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716303650: mosquitto version 2.0.18 starting
+1716303650: Config loaded from /mosquitto/config/mosquitto.conf.
+1716303650: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716303650: Opening websockets listen socket on port 1865.
+1716303650: mosquitto version 2.0.18 running
+1716303656: mosquitto version 2.0.18 terminating
+1716303656: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716303978: mosquitto version 2.0.18 starting
+1716303978: Config loaded from /mosquitto/config/mosquitto.conf.
+1716303978: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716303978: Opening websockets listen socket on port 1864.
+1716303978: mosquitto version 2.0.18 running
+1716304064: mosquitto version 2.0.18 terminating
+1716304064: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716304078: mosquitto version 2.0.18 starting
+1716304078: Config loaded from /mosquitto/config/mosquitto.conf.
+1716304078: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716304078: Opening websockets listen socket on port 1865.
+1716304078: mosquitto version 2.0.18 running
+1716304190: mosquitto version 2.0.18 terminating
+1716304190: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716362120: mosquitto version 2.0.18 starting
+1716362120: Config loaded from /mosquitto/config/mosquitto.conf.
+1716362120: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716362120: Opening websockets listen socket on port 1865.
+1716362120: mosquitto version 2.0.18 running
+1716362124: mosquitto version 2.0.18 terminating
+1716362124: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716362136: mosquitto version 2.0.18 starting
+1716362136: Config loaded from /mosquitto/config/mosquitto.conf.
+1716362136: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716362136: Opening websockets listen socket on port 1864.
+1716362136: mosquitto version 2.0.18 running
+1716362229: mosquitto version 2.0.18 terminating
+1716362229: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716362780: mosquitto version 2.0.18 starting
+1716362780: Config loaded from /mosquitto/config/mosquitto.conf.
+1716362780: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716362780: Opening websockets listen socket on port 1864.
+1716362780: mosquitto version 2.0.18 running
+1716363079: mosquitto version 2.0.18 terminating
+1716363079: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716366927: mosquitto version 2.0.18 starting
+1716366927: Config loaded from /mosquitto/config/mosquitto.conf.
+1716366927: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716366927: Opening websockets listen socket on port 1864.
+1716366927: mosquitto version 2.0.18 running
+1716366974: mosquitto version 2.0.18 terminating
+1716366974: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716366986: mosquitto version 2.0.18 starting
+1716366986: Config loaded from /mosquitto/config/mosquitto.conf.
+1716366986: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716366986: Opening websockets listen socket on port 1864.
+1716366986: mosquitto version 2.0.18 running
+1716366997: New client connected from ::ffff:172.25.0.1:45704 as my_temp (p2, c1, k60, u'slpslk').
+1716366997: Client my_temp closed its connection.
+1716367050: mosquitto version 2.0.18 terminating
+1716367050: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716367065: mosquitto version 2.0.18 starting
+1716367065: Config loaded from /mosquitto/config/mosquitto.conf.
+1716367065: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716367065: Opening websockets listen socket on port 1864.
+1716367065: mosquitto version 2.0.18 running
+1716367081: New client connected from ::ffff:172.25.0.1:39524 as my_temp (p2, c1, k60, u'slpslk').
+1716367158: Client mqttx_04ce707e closed its connection.
+1716367167: New client connected from ::ffff:172.25.0.1:58582 as mqttx_04ce707e (p5, c1, k60, u'slpslk').
+1716367223: Client mqttx_04ce707e disconnected.
+1716367225: Client my_temp disconnected.
+1716367249: mosquitto version 2.0.18 terminating
+1716367249: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716383521: mosquitto version 2.0.18 starting
+1716383521: Config loaded from /mosquitto/config/mosquitto.conf.
+1716383521: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716383521: Opening websockets listen socket on port 1864.
+1716383521: mosquitto version 2.0.18 running
+1716383534: New client connected from ::ffff:172.25.0.1:42908 as my_temp (p2, c1, k60, u'slpslk').
+1716383534: Client my_temp disconnected.
+1716383618: New client connected from ::ffff:172.25.0.1:52736 as my_temp (p2, c1, k60, u'slpslk').
+1716383663: Client my_temp disconnected.
+1716383672: New client connected from ::ffff:172.25.0.1:45646 as mqttx_04ce707e (p5, c1, k60, u'slpslk').
+1716383677: New client connected from ::ffff:172.25.0.1:39816 as my_temp (p2, c1, k60, u'slpslk').
+1716383701: Client my_temp disconnected.
+1716383722: mosquitto version 2.0.18 terminating
+1716383722: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716383722: Client mqttx_04ce707e closed its connection.
+1716384013: mosquitto version 2.0.18 starting
+1716384013: Config loaded from /mosquitto/config/mosquitto.conf.
+1716384013: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716384013: Opening websockets listen socket on port 1865.
+1716384013: mosquitto version 2.0.18 running
+1716384098: New client connected from ::ffff:172.25.0.1:37668 as mqttx_04ce707e (p5, c1, k60, u'slpslk').
+1716384119: New client connected from ::ffff:172.25.0.1:58288 as my_light (p2, c1, k60, u'slpslk').
+1716384147: Client my_light disconnected.
+1716384182: mosquitto version 2.0.18 terminating
+1716384182: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716384182: Client mqttx_04ce707e closed its connection.
+1716386749: mosquitto version 2.0.18 starting
+1716386749: Config loaded from /mosquitto/config/mosquitto.conf.
+1716386749: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716386749: Opening websockets listen socket on port 1864.
+1716386749: mosquitto version 2.0.18 running
+1716386828: mosquitto version 2.0.18 terminating
+1716386828: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716392831: mosquitto version 2.0.18 starting
+1716392831: Config loaded from /mosquitto/config/mosquitto.conf.
+1716392831: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716392831: Opening websockets listen socket on port 1864.
+1716392831: mosquitto version 2.0.18 running
+1716392925: New client connected from ::ffff:172.25.0.1:52346 as my_lamp (p2, c1, k60, u'slpslk').
+1716392967: New client connected from ::ffff:172.25.0.1:51684 as mqttx_04ce707e (p5, c1, k60, u'slpslk').
+1716393167: Client my_lamp disconnected.
+1716393182: mosquitto version 2.0.18 terminating
+1716393182: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716393182: Client mqttx_04ce707e closed its connection.
+1716393203: mosquitto version 2.0.18 starting
+1716393203: Config loaded from /mosquitto/config/mosquitto.conf.
+1716393203: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716393203: Opening websockets listen socket on port 1865.
+1716393203: mosquitto version 2.0.18 running
+1716393207: mosquitto version 2.0.18 terminating
+1716393207: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716393230: mosquitto version 2.0.18 starting
+1716393230: Config loaded from /mosquitto/config/mosquitto.conf.
+1716393230: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716393230: Opening websockets listen socket on port 1864.
+1716393230: mosquitto version 2.0.18 running
+1716393236: New client connected from ::ffff:172.25.0.1:51070 as my_lamp (p2, c1, k60, u'slpslk').
+1716393347: Client my_lamp disconnected.
+1716393349: mosquitto version 2.0.18 terminating
+1716393349: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716393378: mosquitto version 2.0.18 starting
+1716393378: Config loaded from /mosquitto/config/mosquitto.conf.
+1716393378: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716393378: Opening websockets listen socket on port 1864.
+1716393378: mosquitto version 2.0.18 running
+1716393388: New client connected from ::ffff:172.25.0.1:51554 as my_lamp (p2, c1, k60, u'slpslk').
+1716393416: Client my_lamp disconnected.
+1716393418: mosquitto version 2.0.18 terminating
+1716393418: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716393495: mosquitto version 2.0.18 starting
+1716393495: Config loaded from /mosquitto/config/mosquitto.conf.
+1716393495: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716393495: Opening websockets listen socket on port 1864.
+1716393495: mosquitto version 2.0.18 running
+1716393502: New client connected from ::ffff:172.25.0.1:38594 as my_lamp (p2, c1, k60, u'slpslk').
+1716393512: New client connected from ::ffff:172.25.0.1:58190 as mqttx_04ce707e (p5, c1, k60, u'slpslk').
+1716393536: Client my_lamp disconnected.
+1716393620: New client connected from ::ffff:172.25.0.1:60920 as my_lamp (p2, c1, k60, u'slpslk').
+1716393696: Client my_lamp disconnected.
+1716393716: New client connected from ::ffff:172.25.0.1:37880 as my_lamp (p2, c1, k60, u'slpslk').
+1716393727: Client my_lamp disconnected.
+1716393744: mosquitto version 2.0.18 terminating
+1716393744: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716393744: Client mqttx_04ce707e closed its connection.
+1716448192: mosquitto version 2.0.18 starting
+1716448192: Config loaded from /mosquitto/config/mosquitto.conf.
+1716448192: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716448192: Opening websockets listen socket on port 1864.
+1716448192: mosquitto version 2.0.18 running
+1716448197: mosquitto version 2.0.18 terminating
+1716448197: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1716448206: mosquitto version 2.0.18 starting
+1716448206: Config loaded from /mosquitto/config/mosquitto.conf.
+1716448206: Warning: File /mosquitto/config/pswdf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/pswdf`.
+1716448206: Opening websockets listen socket on port 1864.
+1716448206: mosquitto version 2.0.18 running
+1716448554: mosquitto version 2.0.18 terminating
+1716448554: Saving in-memory database to /mosquitto/data/mosquitto.db.

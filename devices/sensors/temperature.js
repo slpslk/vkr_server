@@ -2,32 +2,18 @@ import { Sensor } from "./sensor.js";
 
 
 export class TemperatureSensor extends Sensor {
-  
-  type = 'temperature'
+  type =  'temperature';
 
   constructor(properties) {
     super(properties.id, properties.name, properties.place, properties.meanTimeFailure, properties.protocol, properties.connectionOptions,
           properties.sendingPeriod);
-    // this.measureRange = {
-    //   min: -10,
-    //   max: 40,
-    //   error: 0.5,
-    //   opRange: 1000 //дальность работы
-    // };
-
+          
     this.weatherParams = new URLSearchParams({
       q: "Novosibirsk",
       appid: "d50880dea21e32fb9a2a420c9f68a961",
       units: "metric",
     });
-
-    // this.weatherParams = new URLSearchParams({
-    //   q: this.weatherAPI.q,
-    //   appid: this.weatherAPI.appid,
-    //   units: this.weatherAPI.units
-    // })
     this.measureRange = properties.measureRange;
-    
   }
 
 

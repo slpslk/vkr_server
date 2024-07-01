@@ -7,12 +7,6 @@ export class LightingSensor extends Sensor {
   constructor(properties) {
     super(properties.id, properties.name, properties.place, properties.meanTimeFailure, properties.protocol, properties.connectionOptions,
           properties.sendingPeriod);
-    // this.measureRange = {
-    //   min: -10,
-    //   max: 40,
-    //   error: 0.5,
-    //   opRange: 1000 //дальность работы
-    // };
 
     this.weatherParams = new URLSearchParams({
       q: "Novosibirsk",
@@ -20,13 +14,7 @@ export class LightingSensor extends Sensor {
       units: "metric",
     });
 
-    // this.weatherParams = new URLSearchParams({
-    //   q: this.weatherAPI.q,
-    //   appid: this.weatherAPI.appid,
-    //   units: this.weatherAPI.units
-    // })
     this.measureRange = properties.measureRange;
-    
   }
 
 

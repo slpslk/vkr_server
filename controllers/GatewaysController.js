@@ -1,10 +1,10 @@
 import { EthernetGateway } from "../gateways/ethernet.js";
 import { WifiGateway } from "../gateways/wifi.js";
 import { BLEGateway } from "../gateways/ble.js";
-import {deviceStorage} from "../deviceStorage.js";
-import {gatewayStorage, addGateway, deleteGateway} from "../gatewayStorage.js";
+import {DeviceStorage} from "../storages/index.js";
+import { GatewayStorage } from "../storages/index.js";
 import {deviceReplacer} from "./DevicesController.js"
-import { saveGateway, deleteGatewayFromDB, updateGateway } from "../schemas.js";
+import { saveGateway, deleteGatewayFromDB, updateGateway } from "../models/Gateway.js";
 import * as util from 'util'
 
 // function gatewayReplacer(key, value) {
@@ -24,11 +24,11 @@ function gatewayReplacer(key, value) {
 
 export const sendGatewayStorage = (req, res) => {
   
-  if(gatewayStorage.length == 0) {
+  if(GatewayStorage.gatewayStorage.length == 0) {
     res.json(null)
   }
   else {
-    res.json(JSON.stringify(gatewayStorage, gatewayReplacer))
+    res.json(JSON.stringify(GatewayStorage.gatewayStorage, gatewayReplacer))
   }
 }
 
@@ -36,7 +36,7 @@ export const deleteFromGatewayStorage = async (req, res) => {
   const gatewayID = req.body["gatewayID"];
   await deleteGatewayFromDB(gatewayID);
 
-  deleteGateway(gatewayID)
+  GatewayStorage.deleteGateway(gatewayID)
   res.json({message: "success"})
 }
 
@@ -44,9 +44,9 @@ export const createEthernetGateway = async(req, res) => {
   const requestData = req.body;
   const newGateway = new EthernetGateway(requestData);
 
-  await saveGateway(newGateway.id, newGateway.type, requestData)
+  await saveGateway(newGateway.id, req.userId, newGateway.type, requestData)
 
-  addGateway(newGateway)
+  GatewayStorage.addGateway(newGateway)
   console.log(req.body);
   console.log(newGateway)
   res.json({ message: "success", "new gateway id": newGateway.id });
@@ -56,9 +56,9 @@ export const createEthernetGateway = async(req, res) => {
 export const createWiFiGateway = async (req, res) => {
   const requestData = req.body;
   const newGateway = new WifiGateway(requestData);
-  await saveGateway(newGateway.id, newGateway.type, requestData)
+  await saveGateway(newGateway.id, req.userId, newGateway.type, requestData)
   
-  addGateway(newGateway)
+  GatewayStorage.addGateway(newGateway)
   console.log(req.body);
   res.json({ message: "success", "new gateway id": newGateway.id });
 }
@@ -66,9 +66,9 @@ export const createWiFiGateway = async (req, res) => {
 export const createBLEGateway = async (req, res) => {
   const requestData = req.body;
   const newGateway = new BLEGateway(requestData);
-  await saveGateway(newGateway.id, newGateway.type, requestData);
+  await saveGateway(newGateway.id, req.userId, newGateway.type, requestData);
 
-  addGateway(newGateway)
+  GatewayStorage.addGateway(newGateway)
   console.log(req.body);
   res.json({ message: "success", "new gateway id": newGateway.id });
 }
@@ -77,8 +77,8 @@ export const connectDeviceToGateway = (req, res) => {
   const gatewayID = req.params["id"];
   const deviceID = req.body["deviceID"];
   const distance = req.body["distance"]
-  const currentGateway = gatewayStorage.find((gateway) => gateway.id === gatewayID);
-  const currentDevice = deviceStorage.find((device) => device.id === deviceID);
+  const currentGateway = GatewayStorage.gatewayStorage.find((gateway) => gateway.id === gatewayID);
+  const currentDevice = DeviceStorage.deviceStorage.find((device) => device.id === deviceID);
 
   if (currentGateway === undefined) {
     res.status(404).json({ error: "Gateway not found" });
@@ -102,7 +102,7 @@ export const connectDeviceToGateway = (req, res) => {
 export const changeGateway = async(req, res) => {
   const gatewayID = req.params["id"];
   const changedData = req.body
-  const currentGateway = gatewayStorage.find((gateway) => gateway.id === gatewayID);
+  const currentGateway = GatewayStorage.gatewayStorage.find((gateway) => gateway.id === gatewayID);
 
   await updateGateway(gatewayID, changedData)
   currentGateway.changeGatewayFields(changedData)
@@ -114,8 +114,8 @@ export const changeGateway = async(req, res) => {
 export const disconnectDeviceFromGateway = (req, res) => {
   const gatewayID = req.params["id"];
   const deviceID = req.body["deviceID"];
-  const currentGateway = gatewayStorage.find((gateway) => gateway.id === gatewayID);
-  const currentDevice = deviceStorage.find((device) => device.id === deviceID);
+  const currentGateway = GatewayStorage.gatewayStorage.find((gateway) => gateway.id === gatewayID);
+  const currentDevice = DeviceStorage.deviceStorage.find((device) => device.id === deviceID);
 
   if (currentGateway === undefined) {
     res.status(404).json({ error: "Gateway not found" });
@@ -134,7 +134,7 @@ export const disconnectDeviceFromGateway = (req, res) => {
 
 export const getGatewayDevices = (req, res) => {
   const gatewayID = req.params["id"];
-  const currentGateway = gatewayStorage.find((gateway) => gateway.id === gatewayID);
+  const currentGateway = GatewayStorage.gatewayStorage.find((gateway) => gateway.id === gatewayID);
   if (currentGateway === undefined) {
     res.status(404).json({ error: "Gateway not found" });
   } 

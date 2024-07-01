@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { getUserId} from './userStorage.js';
+import { getUserId} from './storages/userStorage.js';
 const { Schema } = mongoose;
 
 const deviceSchema = new Schema({
@@ -57,7 +57,7 @@ const userSchema = new Schema({
   },
 })
 
-//модели 
+модели 
 export const Device = mongoose.model("Device", deviceSchema)
 export const Gateway = mongoose.model("Gateway", gatewaySchema)
 export const User = mongoose.model("User", userSchema)
@@ -118,10 +118,10 @@ export async function saveGateway(id, type, gateway) {
   console.log("Сохранен объект", dbGateway);
 }
 
-export async function getGateways() {
+export async function getGateways(userID) {
   // await mongoose.connect("mongodb://127.0.0.1:27017/test");
 
-  const gateways = await Gateway.find({});
+  const gateways = await Gateway.find({userID: userID});
 
   // await mongoose.disconnect();
 

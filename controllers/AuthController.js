@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcryptjs";
 import { User } from '../models/User.js';
+import {initializeData, clearData} from '../storages/index.js'
 
 export async function registration(req, res) {
   try {
@@ -16,7 +17,7 @@ export async function registration(req, res) {
 
     const user = new User({fullName, username, passwordHash: hashPassword})
     await user.save()
-    
+
     const token = jwt.sign(
       {
         _id: user._id,
@@ -26,9 +27,10 @@ export async function registration(req, res) {
         expiresIn: '30d',
       },
     );
-
+    
+    initializeData(user)
+    
     const { passwordHash, ...userData } = user._doc;
-
     res.json({
       ...userData,
       token,
@@ -65,6 +67,8 @@ export async function login(req, res) {
       },
     );
 
+    initializeData(user)
+
     const { passwordHash, ...userData } = user._doc;
 
     res.json({
@@ -76,4 +80,9 @@ export async function login(req, res) {
     console.log(err)
     res.status(500).json({message: "Не удалось авторизировать пользователя"})
   }
+}
+
+export async function logOut(req, res) {
+  clearData();
+  res.json({message: "success"})
 }

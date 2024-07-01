@@ -6,9 +6,6 @@ import gatewayRoutes from './routes/gateways.js'
 import userRoutes from './routes/user.js'
 import authRouter from './routes/autorization.js'
 import mongoose from 'mongoose'
-import { initializeDevicesFromDB } from './deviceStorage.js'
-import { initializeGatewaysFromDB } from './gatewayStorage.js'
-import { initializeUserFromBD } from './userStorage.js'
 
 const app = express(), server = http.createServer(app);
 const host = 'localhost', port = 8000;
@@ -22,11 +19,6 @@ app.use(gatewayRoutes)
 app.use(userRoutes)
 app.use(authRouter)
 
-async function initializeData() {
-    await initializeDevicesFromDB()
-    await initializeGatewaysFromDB()
-    // await initializeUserFromBD()
-}
 
 async function main() {
     try{
@@ -35,7 +27,6 @@ async function main() {
             console.log(`Server listens http://${host}:${port}`)
         );
         console.log("Сервер ожидает подключения...");
-        // await initializeData()
     }
     catch(err) {
         return console.log(err);

@@ -1,12 +1,21 @@
 import { v4 as uuidv4 } from 'uuid';
 import * as mqtt from "mqtt";
-import {getUserTokenAPI} from "../../userStorage.js"
+import {UserStorage} from "../../storages/index.js";
+
+
 const UTC_COEF = 100000;
 const TO_MILISECONDS = 60000;
+
+const LossProbability = {
+  ethernet: 0,
+  wifi: 0.3,
+  ble: 0.4,
+}
 
 export class Sensor {
 
   constructor(id, name, place, meanTimeFailure, protocol, connectionOptions, sendingPeriod) {
+    
     if(id !== undefined) {
       this.id = id
     }
@@ -15,7 +24,6 @@ export class Sensor {
     }
     this.name = name;
     this.place = place;
-
     if(meanTimeFailure !== undefined) {
       this.meanTimeFailure = (((-1/meanTimeFailure) * Math.log(Math.random())) * TO_MILISECONDS).toFixed();
       this.lyambda = meanTimeFailure
@@ -23,9 +31,7 @@ export class Sensor {
     else {
       this.meanTimeFailure = null;
     }
-
     this.gateway = null;
-    
     this.physicalProtocol = protocol.physical;
     this.protocolVersions = protocol.versions;
     this.connectionError = false;
@@ -39,37 +45,31 @@ export class Sensor {
         this.sendingTopic = connectionOptions.sendingTopic;
       }
       else {
-        this.brokerURL = "ws://localhost:1884"//сделать изменяемый порт
+        this.brokerURL = `ws://localhost:`
         this.lastMQTTPublish = null
-        this.sendingTopic = `${this.id}/${this.type}`;//инициализировать type в конструкторе, пока передает undefined
+        this.sendingTopic = `${this.id}${connectionOptions.sendingTopic}`;
       }
+
       this.ConnectionOptions = {
         clientId: connectionOptions.clientId, 
         username: connectionOptions.username,
         password: connectionOptions.password,
         reconnectPeriod: 0,
       }
-
-      
       this.QoS = connectionOptions.QoS;
     }
     else{
       this.mqttClient = 'none';
       this.ConnectionOptions = {
         clientId: connectionOptions.clientId,
-        apiToken: getUserTokenAPI()
+        apiToken: UserStorage.getUserTokenAPI()
       }
     }
-    
-
     this.sendingPeriod = sendingPeriod * TO_MILISECONDS;
   }
 
   physicalConnect() {
     if (this.gateway !== null) {
-      // if(this.gateway.versions.toString() != this.protocolVersions.toString()) {
-      //   return false
-      // }
       return true;
     }
     return false;
@@ -81,13 +81,11 @@ export class Sensor {
         this.brokerURL,
         this.ConnectionOptions
       )
-
     }
     catch(error) {
       console.log(error);
       this.connectionError = true
     }
-
   }
 
   async connectThroughHTTP() {
@@ -160,10 +158,12 @@ export class Sensor {
         }
       } 
       else {
+        if (this.broker == "personal") {
+          this.brokerURL = this.brokerURL + UserStorage.getUserBroker().port
+        }
         await this.connectThroughMQTT()
 
         if(this.mqttClient !== null) {
-
           console.log(
             `${new Date()}  Sensor: ${this.name} is connected. Protocol: MQTT`
           );
@@ -180,9 +180,7 @@ export class Sensor {
         else {
           return false;
         }
-        
       }
-      
     }
     else {
       return false;
@@ -198,29 +196,32 @@ export class Sensor {
   workThroughHTTP() {
 
     this.intervalID = setInterval(async () => {
-      const dataType = this.type
-      const response = await fetch(`https://dev.rightech.io/api/v1/objects/${this.ConnectionOptions.clientId}/packets`,
-      {
-        method: "POST",
-        headers: {
-          'Authorization': `Bearer ${this.ConnectionOptions.apiToken}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          [dataType]: await this.makeSensorData(),
-        }),
+      var loss = Math.random()
+      if(loss > LossProbability[this.physicalProtocol]) {
+        const dataType = this.type
+        const response = await fetch(`https://dev.rightech.io/api/v1/objects/${this.ConnectionOptions.clientId}/packets`,
+        {
+          method: "POST",
+          headers: {
+            'Authorization': `Bearer ${this.ConnectionOptions.apiToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            [dataType]: await this.makeSensorData(),
+          }),
+        }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+        } else {
+          clearInterval(this.intervalID);
+          console.log("Произошла ошибка во время выполнения запроса! Код ошибки: " + response.status)
+        }
       }
-      );
-      
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-    } else {
-      clearInterval(this.intervalID);
-      console.log("Произошла ошибка во время выполнения запроса! Код ошибки: " + response.status)
-    }
+
     }, this.sendingPeriod);
-    
   }
 
   async sendMQTTMessage() {
@@ -233,7 +234,14 @@ export class Sensor {
   workThroughMQTT() {
     this.sendMQTTMessage()
     this.intervalID = setInterval(async () => {
-      this.sendMQTTMessage();
+      var loss = Math.random()
+      if(loss > LossProbability[this.physicalProtocol])
+      {
+        this.sendMQTTMessage();
+      }
+      else {
+        console.log('loss worked')
+      }
     }, this.sendingPeriod);
   }
 
@@ -295,10 +303,7 @@ export class Sensor {
       'Content-Type': 'application/json'
     },
     });
-
     const data = await response.json();
-    console.log(data)
-
     return {
       currentData: data.state[this.type],
       online: this.mqttClient == "none" ? this.intervalID !== undefined : data.state.online
